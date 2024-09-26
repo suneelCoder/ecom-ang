@@ -1,0 +1,144 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.p-error {
+    font-size: 0.8em;
+    color: #f44336;
+    text-align: left;
+    margin-top: .2rem;
+    /* Red color for error messages */
+}
+
+.p-m-4 {
+    margin: 1rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.min-h-screen {
+    min-height: 90vh;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+    /* Adjust as needed */
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+    /* Adjust as needed */
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.p-error {
+    color: red;
+    /* You can customize this as needed */
+    font-size: 0.875rem;
+    /* Adjust font size if needed */
+}
+
+.p-field {
+    width: 100%;
+    /* Ensures fields take full width */
+}
+
+/* Additional styling for the card */
+.p-card {
+    width: 500px;
+    /* Ensure full width on small screens */
+    padding: 2rem;
+    /* Add padding around the card */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.form-container {
+    margin: 30px 0;
+    /* Add some vertical space */
+}
+
+p-card {
+    /* Padding inside the card for spacing */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    /* Add a subtle shadow for a clean look */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.p-fluid .field {
+    margin-bottom: 20px;
+    /* Vertical margin for each form field */
+}
+
+.p-button {
+    width: 100%;
+    /* Full-width submit button */
+    background-color: #007bff;
+    /* Primary button color */
+    border-color: #007bff;
+    color: white;
+}
+
+.p-button:hover {
+    background-color: #0056b3;
+    /* Darken the button on hover */
+    border-color: #0056b3;
+}
+
+.p-error {
+    font-size: 0.85rem;
+    color: red;
+    margin-top: 5px;
+}
+
+textarea {
+    resize: none;
+    /* Disable textarea resizing */
+}
+
+input,
+textarea {
+    width: 100%;
+    /* Ensure inputs take the full width of the form */
+    margin-top: .3rem;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

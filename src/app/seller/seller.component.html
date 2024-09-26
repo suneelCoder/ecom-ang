@@ -1,0 +1,33 @@
+<div class="flex justify-content-center align-items-center min-h-screen">
+    <p-card [style]="{ width: '400px' }">
+        <h2 class="text-center">Register Seller</h2>
+        <form [formGroup]="sellerForm" (ngSubmit)="onSubmit()" class="form">
+            <div class="p-field flex flex-col mb-4">
+                <input id="name" type="text" pInputText formControlName="name" placeholder="Name" class="w-full" />
+                <div *ngIf="sellerForm.get('name')?.invalid && sellerForm.get('name')?.touched"
+                    class="p-error error-message">
+                    Name is required.
+                </div>
+            </div>
+
+            <div class="p-field flex flex-col mb-4">
+                <input id="email" type="email" pInputText formControlName="email" placeholder="Email" class="w-full" />
+                <div *ngIf="sellerForm.get('email')?.invalid && sellerForm.get('email')?.touched"
+                    class="p-error error-message">
+                    Valid email is required.
+                </div>
+            </div>
+
+            <div class="p-field flex flex-col mb-4">
+                <p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="false"
+                    placeholder="Password" class="p-password p-inputtext"></p-password>
+                <div *ngIf="sellerForm.get('password')?.invalid && sellerForm.get('password')?.touched"
+                    class="p-error error-message">
+                    Password is required.
+                </div>
+            </div>
+            <p-button type="submit" label="Register" [disabled]="sellerForm.invalid" class="w-full"></p-button>
+        </form>
+        <p-toast />
+    </p-card>
+</div>

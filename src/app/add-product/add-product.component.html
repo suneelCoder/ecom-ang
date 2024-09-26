@@ -1,0 +1,59 @@
+<div class="flex justify-content-center align-items-center min-h-screen form-container">
+    <p-card [style]="{ width: '500px' }">
+        <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+            <div class="p-fluid grid formgrid">
+                <div class="field col-12 md:col-6">
+                    <label for="name">Product Name</label>
+                    <input id="name" type="text" pInputText formControlName="name" />
+                    <small *ngIf="addProductForm.controls['name'].invalid && addProductForm.controls['name'].touched"
+                        class="p-error">
+                        Product Name is required
+                    </small>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="price">Price</label>
+                    <p-inputNumber id="price" formControlName="price" mode="currency" currency="USD"></p-inputNumber>
+                    <small *ngIf="addProductForm.controls['price'].invalid && addProductForm.controls['price'].touched"
+                        class="p-error">
+                        Price is required and must be a positive value
+                    </small>
+                </div>
+
+                <div class="field col-12">
+                    <label for="description">Description</label>
+                    <textarea id="description" rows="5" pInputTextarea formControlName="description"></textarea>
+                    <small
+                        *ngIf="addProductForm.controls['description'].invalid && addProductForm.controls['description'].touched"
+                        class="p-error">
+                        Description is required (max 500 characters)
+                    </small>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="stock">Stock Quantity</label>
+                    <p-inputNumber id="stock" formControlName="stock" min="1"></p-inputNumber>
+                    <small *ngIf="addProductForm.controls['stock'].invalid && addProductForm.controls['stock'].touched"
+                        class="p-error">
+                        Stock quantity must be at least 1
+                    </small>
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label for="images">Product Images</label>
+                    <p-fileUpload name="images" accept="image/*" customUpload="true" multiple="true"
+                        (uploadHandler)="onImageUpload($event)" />
+                    <small
+                        *ngIf="addProductForm.controls['images'].invalid && addProductForm.controls['images'].touched"
+                        class="p-error">
+                        Product images are required
+                    </small>
+                </div>
+            </div>
+
+            <div class="flex justify-content-end mt-4">
+                <button pButton type="submit" label="Add Product" [disabled]="addProductForm.invalid"></button>
+            </div>
+        </form>
+    </p-card>
+</div>
