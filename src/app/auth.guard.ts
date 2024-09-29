@@ -15,20 +15,27 @@ export const authGuard: CanActivateFn = (route, state) => {
             return { isAuthenticated, requestedRoute: state.url };
         }),
         tap(({ isAuthenticated, requestedRoute }) => {
-            const isLoginOrSeller = requestedRoute === '/login' || requestedRoute === '/seller';
+            const isLoginPage = requestedRoute === '/login';
+            const isSellerPage = requestedRoute === '/seller';
             const isSellerHome = requestedRoute === '/seller-home';
 
             if (isAuthenticated) {
-                // Redirect authenticated users away from /login or /seller
-                if (isLoginOrSeller) {
-                    router.navigate(['/seller-home']); // Redirect to home or any other page
+                // If the user is authenticated, prevent access to /login or /seller
+                if (isLoginPage || isSellerPage) {
+                    router.navigate(['/seller-home']); // Redirect authenticated users to seller-home
                 }
-            } else if (isSellerHome) {
-                // Redirect non-authenticated users trying to access /seller-home to login
-                router.navigate(['/login']);
+            } else {
+                // If the user is not authenticated, allow access to /login and /seller
+                if (isSellerHome) {
+                    router.navigate(['/login']); // Redirect unauthenticated users from seller-home to login
+                }
             }
         }),
-        map(({ isAuthenticated }) => isAuthenticated), // Only allow access if authenticated
+        map(({ isAuthenticated }) => {
+            const isLoginPage = state.url === '/login';
+            // Allow access to /login if unauthenticated
+            return isLoginPage || isAuthenticated;
+        }),
         catchError((error) => {
             console.error('Error in authGuard:', error);
             return of(false); // Return false to prevent access to the route

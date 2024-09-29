@@ -1,0 +1,48 @@
+<div class="product-card">
+    <!-- Carousel to display product images without arrows and enabled swipe -->
+    <!-- Bind the product images array to the carousel -->
+    <!-- Show one image at a time in the carousel -->
+    <!-- Enable circular navigation through images -->
+    <!-- Hide the left/right navigation arrows -->
+    <!-- Hide the indicators showing current image position -->
+    <p-carousel [value]="product.images" [numVisible]="1" [circular]="true" [showNavigators]="false"
+        [showIndicators]="false" styleClass="custom-carousel"> <!-- Apply custom styles defined in the CSS -->
+
+        <!-- Template for each image in the carousel -->
+        <ng-template pTemplate="item" let-image>
+            <!-- Bind the image source dynamically from the product's images array -->
+            <!-- Alt text for accessibility and SEO -->
+            <!-- Class for styling the product image -->
+            <img [src]="image" alt="Product Image" class="product-image" />
+        </ng-template>
+    </p-carousel>
+
+    <!-- Product information section: name, description, and price -->
+    <div class="product-info">
+        <h2>{{ product.name }}</h2> <!-- Display the product name dynamically from the product object -->
+
+        <!-- Display a slice of the product description, limiting to the first 50 characters -->
+        <p>{{ product.description | slice: 0:50 }}...</p>
+
+        <!-- Display the product price, formatted as currency -->
+        <p class="price">{{ product.price | currency }}</p>
+
+        <!-- Quantity control section (currently commented out) -->
+        <!--
+        <div class="quantity-control">
+            <button pButton icon="pi pi-minus" (click)="decrementQuantity()"></button>
+            <span>{{ quantity }}</span>   Display the current quantity dynamically -->
+        <!-- <button pButton icon="pi pi-plus" (click)="incrementQuantity()"></button> -->
+    </div>
+
+
+    <!-- Action buttons for adding to cart and buying now -->
+    <div class="buttons">
+        <!-- Button to add the product to the cart; calls the addToCart() method when clicked -->
+        <button pButton class="add-to-cart-button" label="Add to Cart" (click)="addToCart()">
+        </button>
+        <!-- Button to initiate the buy now action; calls the buyNow() method when clicked -->
+        <button pButton class="buy-button" label="Buy Now" (click)="buyNow()">
+        </button>
+    </div>
+</div>

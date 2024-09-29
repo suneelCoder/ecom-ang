@@ -1,1 +1,12 @@
-<p>home works!</p>
+<!-- home.component.html -->
+
+<!-- Container for the list of products -->
+<div class="product-list">
+    <!-- Loop through the 'products' array and create an app-product component for each product -->
+    <!-- Bind the product object to the product input of the app-product component -->
+    <!-- Bind the addToCart method to the onAddToCart input of the app-product component -->
+    <app-product *ngFor="let product of products" [product]="product" [onAddToCart]="addToCart.bind(this)"
+        [onRemoveFromCart]="removeFromCart.bind(this)">
+        <!-- Bind the removeFromCart method to the onRemoveFromCart input of the app-product component -->
+    </app-product>
+</div>

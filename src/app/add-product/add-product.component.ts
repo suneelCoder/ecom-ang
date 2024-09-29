@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -8,6 +8,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
+import { SellerService } from '../services/seller.service';
+import { FileUpload } from 'primeng/fileupload';  // Import FileUpload
 
 @Component({
     selector: 'app-add-product',
@@ -27,9 +29,13 @@ import { CardModule } from 'primeng/card';
 })
 export class AddProductComponent implements OnInit {
     addProductForm!: FormGroup;
-    images: string[] = []; // Store Base64 encoded images
+    images: string[] = [];
+    isLoading = false;  // Loader flag
+    isSuccess = false;  // Success message flag
 
-    constructor(private fb: FormBuilder) { }
+    @ViewChild('fileUpload') fileUpload!: FileUpload;  // ViewChild for FileUpload
+
+    constructor(private fb: FormBuilder, private sellerService: SellerService) { }
 
     ngOnInit() {
         this.addProductForm = this.fb.group({
@@ -37,38 +43,49 @@ export class AddProductComponent implements OnInit {
             price: [null, [Validators.required, Validators.min(1)]],
             description: ['', [Validators.required, Validators.maxLength(500)]],
             stock: [null, [Validators.required, Validators.min(1)]],
-            images: [null, [Validators.required]] // Validation for images
+            images: [null, [Validators.required]]  // Validation for images
         });
     }
 
     onSubmit() {
         if (this.addProductForm.valid) {
+            this.isLoading = true;  // Start loader
             const productData = {
                 name: this.addProductForm.get('name')?.value,
                 price: this.addProductForm.get('price')?.value,
                 description: this.addProductForm.get('description')?.value,
                 stock: this.addProductForm.get('stock')?.value,
-                images: this.images // Send the Base64 images as part of the JSON
+                images: this.images
             };
 
-            console.log('Product Data:', productData);
-            // Send `productData` to the backend using your preferred HTTP method (e.g., HttpClient in Angular)
+            this.sellerService.createProduct(productData).subscribe(
+                (response) => {
+                    console.log('Product Created:', response);
+                    this.isSuccess = true;  // Show success message
+                    this.isLoading = false;  // Stop loader
+                    this.addProductForm.reset();  // Reset the form
+                    this.images = [];  // Clear images
+                    this.fileUpload.clear();  // Clear the file upload component
+                },
+                (error) => {
+                    console.error('Error creating product:', error);
+                    this.isLoading = false;  // Stop loader
+                }
+            );
         }
     }
 
     onImageUpload(event: any) {
-        const files = event.files as File[]; // Cast to File[] to avoid type error
-
-        this.images = []; // Reset the images array
+        const files = event.files as File[];
+        this.images = [];
 
         Array.from(files).forEach((file: File) => {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            this.images.push(e.target.result); // Convert the image to Base64 and store
-            this.addProductForm.patchValue({ images: this.images });
-          };
-          reader.readAsDataURL(file); // Read the file as a data URL (Base64)
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                this.images.push(e.target.result);
+                this.addProductForm.patchValue({ images: this.images });
+            };
+            reader.readAsDataURL(file);
         });
-      }
-
+    }
 }

@@ -34,6 +34,27 @@
     min-height: 90vh;
 }
 
+.text-success {
+    color: #28a745;
+    /* Green color */
+    font-weight: bold;
+    /* Bold text */
+    font-size: 16px;
+    /* Font size */
+    margin-top: 10px;
+    /* Space above the message */
+}
+
+/* Optional: Add some transition effects for better visibility */
+.text-success {
+    transition: opacity 0.3s ease;
+}
+
+/* Optional: Fade out effect if you want to hide the message after a while */
+.text-success.fade-out {
+    opacity: 0;
+}
+
 .w-full {
     width: 100%;
 }
@@ -83,6 +104,10 @@
 .form-container {
     margin: 30px 0;
     /* Add some vertical space */
+}
+
+.text-center {
+    text-align: center;
 }
 
 p-card {
